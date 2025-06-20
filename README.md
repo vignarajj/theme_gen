@@ -58,6 +58,12 @@ Available predefined themes:
 - `purple`
 - `blackandwhite`
 
+### Theme Previews
+
+| Blue Theme                                           | Red Theme                                         | Green Theme                                           |
+| ---------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
+| ![Blue Theme](screenshots/blue_theme_screenshot.png) | ![Red Theme](screenshots/red_theme_screenshot.png) | ![Green Theme](screenshots/green_theme_screenshot.png) |
+
 ### Custom Theme Generation (CLI)
 
 Use the CLI to generate a custom theme from a hex color.
@@ -73,6 +79,16 @@ Use the CLI to generate a custom theme from a hex color.
 3.  **Enter a hex color:** Provide a hex color code (e.g., `#FF00FF`).
 
 The CLI will generate a `<theme_name>_theme.dart` file inside the `app_theme/` directory with your custom light and dark themes.
+
+### Testing the CLI
+
+Here is an example of the CLI in action:
+
+![CLI Usage](screenshots/cli_usage.png)
+
+And here is the content of the generated theme file:
+
+![Generated Theme](screenshots/generated_theme.png)
 
 ## Additional information
 
