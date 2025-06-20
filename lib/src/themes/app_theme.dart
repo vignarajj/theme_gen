@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theme_kit/src/themes/predefined_themes.dart';
+import 'package:theme_kit/theme_kit.dart';
 
 class AppTheme {
   const AppTheme._();
