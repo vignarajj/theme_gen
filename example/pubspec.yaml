@@ -1,0 +1,24 @@
+name: example
+description: Demonstrates how to use the theme_gen package.
+publish_to: 'none' 
+
+environment:
+  sdk: '>=3.4.3 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  
+  theme_gen:
+    path: ../
+  
+  hexcolor: ^3.0.1
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  
+  flutter_lints: ^3.0.0
+
+flutter:
+  uses-material-design: true 
