@@ -1,5 +1,5 @@
 name: example
-description: Demonstrates how to use the theme_gen package.
+description: Demonstrates how to use the theme_kit package.
 publish_to: 'none' 
 
 environment:
@@ -9,7 +9,7 @@ dependencies:
   flutter:
     sdk: flutter
   
-  theme_gen:
+  theme_kit:
     path: ../
   
   hexcolor: ^3.0.1

@@ -1,4 +1,4 @@
-name: theme_gen
+name: theme_kit
 description: A Flutter package for easy theme management predefined light/dark themes and dynamic theme generation from any color.
 version: 1.0.0
 # repository: https://github.com/my_org/my_repo
@@ -25,4 +25,4 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 
-repository: https://github.com/vignarajj/theme_gen
+repository: https://github.com/vignarajj/theme_kit

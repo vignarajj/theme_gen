@@ -28,7 +28,7 @@ Add this to your `pubspec.yaml` file's dependencies:
 
 ```yaml
 dependencies:
-  theme_gen: ^1.0.0 # Replace with the latest version
+  theme_kit: ^1.0.0 # Replace with the latest version
   hexcolor: ^3.0.1 # Required for the example
 ```
 
@@ -42,7 +42,7 @@ You can easily apply one of the built-in themes to your `MaterialApp`.
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:theme_gen/theme_gen.dart';
+import 'package:theme_kit/theme_kit.dart';
 
 void main() => runApp(const MyApp());
 
@@ -78,7 +78,7 @@ Create a complete theme on the fly from a single color. This is perfect for lett
 
 ```dart
 import 'package:flutter/material.dart';
-import 'package:theme_gen/theme_gen.dart';
+import 'package:theme_kit/theme_kit.dart';
 import 'package:hexcolor/hexcolor.dart';
 
 class MyDynamicApp extends StatelessWidget {
@@ -126,4 +126,4 @@ This will launch the app on your connected device or simulator.
 ## Additional Information
 
 - For more details on the API, check out the [API Documentation](doc/api/index.html).
-- If you find any issues or have a feature request, please file them on the [GitHub repository](https://github.com/your-repo/theme_gen).
+- If you find any issues or have a feature request, please file them on the [GitHub repository](https://github.com/your-repo/theme_kit).
