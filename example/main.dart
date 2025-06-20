@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:theme_gen/theme_gen.dart';
+import 'package:theme_maker/theme_maker.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,7 +14,8 @@ class MyApp extends StatelessWidget {
       title: 'Theme Gen Example',
       theme: AppTheme.light.blackAndWhite,
       darkTheme: AppTheme.dark.blackAndWhite,
-      themeMode: ThemeMode.system, // Or ThemeMode.light, ThemeMode.dark
+      themeMode: ThemeMode.system,
+      // Or ThemeMode.light, ThemeMode.dark
       home: const MyHomePage(title: 'Theme Gen Example'),
     );
   }
@@ -95,7 +96,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       context: context,
                       builder: (context) => AlertDialog(
                         title: const Text('Sample Dialog'),
-                        content: const Text('This is the content of the dialog.'),
+                        content:
+                            const Text('This is the content of the dialog.'),
                         actions: [
                           TextButton(
                             onPressed: () => Navigator.of(context).pop(),
@@ -109,7 +111,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(height: 16),
-               Center(
+              Center(
                 child: ElevatedButton(
                   onPressed: () {
                     showModalBottomSheet(
