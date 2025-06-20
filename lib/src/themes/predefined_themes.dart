@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:theme_kit/theme_kit.dart';
 
 class PredefinedThemes {
   // Common theme data
