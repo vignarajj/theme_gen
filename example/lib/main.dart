@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:hexcolor/hexcolor.dart';
 import 'package:theme_gen/theme_gen.dart';
-import 'app_theme/custom_pink_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,197 +14,222 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeData _currentTheme = AppTheme.lightTheme.blue;
-  ThemeData _currentDarkTheme = AppTheme.darkTheme.blue;
-  String _selectedTheme = 'blue';
+  ThemeData _currentTheme = AppTheme.light.blue;
+  final TextEditingController _hexColorController = TextEditingController();
+  String _selectedKey = 'blue';
+  ThemeData? _customTheme;
 
-  void _changeTheme(String themeName) {
+  static const themeKeys = [
+    'blackAndWhite',
+    'blue',
+    'red',
+    'green',
+    'purple',
+    'custom',
+  ];
+
+  static const themeLabels = {
+    'blackAndWhite': 'Black & White',
+    'blue': 'Blue',
+    'red': 'Red',
+    'green': 'Green',
+    'purple': 'Purple',
+    'custom': 'Custom',
+  };
+
+  ThemeData _getThemeByKey(String key, bool isDark) {
+    switch (key) {
+      case 'blackAndWhite':
+        return isDark ? AppTheme.dark.blackAndWhite : AppTheme.light.blackAndWhite;
+      case 'blue':
+        return isDark ? AppTheme.dark.blue : AppTheme.light.blue;
+      case 'red':
+        return isDark ? AppTheme.dark.red : AppTheme.light.red;
+      case 'green':
+        return isDark ? AppTheme.dark.green : AppTheme.light.green;
+      case 'purple':
+        return isDark ? AppTheme.dark.purple : AppTheme.light.purple;
+      case 'custom':
+        return _customTheme ?? (isDark ? AppTheme.dark.blue : AppTheme.light.blue);
+      default:
+        return isDark ? AppTheme.dark.blue : AppTheme.light.blue;
+    }
+  }
+
+  void _setTheme(String key) {
+    final isDark = _currentTheme.brightness == Brightness.dark;
     setState(() {
-      _selectedTheme = themeName;
-      switch (themeName) {
-        case 'blue':
-          _currentTheme = AppTheme.lightTheme.blue;
-          _currentDarkTheme = AppTheme.darkTheme.blue;
-          break;
-        case 'red':
-          _currentTheme = AppTheme.lightTheme.red;
-          _currentDarkTheme = AppTheme.darkTheme.red;
-          break;
-        case 'green':
-          _currentTheme = AppTheme.lightTheme.green;
-          _currentDarkTheme = AppTheme.darkTheme.green;
-          break;
-        case 'purple':
-          _currentTheme = AppTheme.lightTheme.purple;
-          _currentDarkTheme = AppTheme.darkTheme.purple;
-          break;
-        case 'blackandwhite':
-          _currentTheme = AppTheme.lightTheme.blackandwhite;
-          _currentDarkTheme = AppTheme.darkTheme.blackandwhite;
-          break;
-        case 'custom_pink':
-          _currentTheme = customPinkLightTheme;
-          _currentDarkTheme = customPinkDarkTheme;
-          break;
+      _selectedKey = key;
+      _currentTheme = _getThemeByKey(key, isDark);
+      if (key != 'custom') {
+        _hexColorController.clear();
+        _customTheme = null;
       }
     });
   }
 
+  void _generateCustomTheme() {
+    try {
+      final color = HexColor(_hexColorController.text);
+      final isDarkMode = _currentTheme.brightness == Brightness.dark;
+      setState(() {
+        _customTheme = isDarkMode
+            ? AppTheme.getCustomDarkTheme(primaryColor: color)
+            : AppTheme.getCustomTheme(primaryColor: color);
+        _currentTheme = _customTheme!;
+        _selectedKey = 'custom';
+      });
+    } catch (e) {
+      // Show error if hex color is invalid
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Invalid Hex Color. Please use format #RRGGBB'),
+        ),
+      );
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    final isDarkMode = _currentTheme.brightness == Brightness.dark;
     return MaterialApp(
-      title: 'Theme Gen Example',
+      title: 'Theme Gen',
       theme: _currentTheme,
-      darkTheme: _currentDarkTheme,
-      themeMode: ThemeMode.system,
       home: MyHomePage(
-        title: 'Theme Gen Example',
-        onThemeChanged: _changeTheme,
-        selectedTheme: _selectedTheme,
+        onThemeChanged: _setTheme,
+        onGenerateCustomTheme: _generateCustomTheme,
+        hexColorController: _hexColorController,
+        selectedKey: _selectedKey,
+        isDarkMode: isDarkMode,
       ),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  const MyHomePage(
-      {super.key,
-      required this.title,
-      required this.onThemeChanged,
-      required this.selectedTheme});
+  const MyHomePage({
+    super.key,
+    required this.onThemeChanged,
+    required this.onGenerateCustomTheme,
+    required this.hexColorController,
+    required this.selectedKey,
+    required this.isDarkMode,
+  });
 
-  final String title;
   final ValueChanged<String> onThemeChanged;
-  final String selectedTheme;
+  final VoidCallback onGenerateCustomTheme;
+  final TextEditingController hexColorController;
+  final String selectedKey;
+  final bool isDarkMode;
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text(title),
+        title: const Text('Theme Gen'),
         actions: [
-          DropdownButton<String>(
-            value: selectedTheme,
-            onChanged: (String? newValue) {
-              if (newValue != null) {
-                onThemeChanged(newValue);
+          IconButton(
+            icon: Icon(Theme.of(context).brightness == Brightness.dark ? Icons.dark_mode : Icons.light_mode),
+            onPressed: () {
+              if (Theme.of(context).brightness == Brightness.dark) {
+                onThemeChanged('blue');
+              } else {
+                onThemeChanged('blue');
               }
             },
-            items: <String>[
-              'blue',
-              'red',
-              'green',
-              'purple',
-              'blackandwhite',
-              'custom_pink'
-            ].map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                value: value,
-                child: Text(value),
-              );
-            }).toList(),
           ),
         ],
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
-        child: SingleChildScrollView(
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              const Text(
-                'This is a sample text.',
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            DropdownButton<String>(
+              isExpanded: true,
+              value: selectedKey,
+              onChanged: (String? newKey) {
+                if (newKey != null) {
+                  onThemeChanged(newKey);
+                }
+              },
+              items: _MyAppState.themeKeys.map((key) {
+                return DropdownMenuItem<String>(
+                  value: key,
+                  child: Text(_MyAppState.themeLabels[key]!),
+                );
+              }).toList(),
+            ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: hexColorController,
+              decoration: const InputDecoration(
+                labelText: 'Enter Hex Color (e.g. #FF00FF)',
+                border: OutlineInputBorder(),
               ),
-              const SizedBox(height: 16),
-              const TextField(
-                decoration: InputDecoration(
-                  labelText: 'Sample TextField',
+            ),
+            const SizedBox(height: 10),
+            ElevatedButton(
+              onPressed: onGenerateCustomTheme,
+              child: const Text('Generate Custom Theme'),
+            ),
+            const SizedBox(height: 20),
+            const Text(
+              'This is a headline',
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 10),
+            const Text(
+              'This is body text. It will inherit the color from the theme.',
+            ),
+            const SizedBox(height: 20),
+            const Card(
+              child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Text('This is a card'),
+              ),
+            ),
+            const SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () {},
+                  child: const Text('Elevated'),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: [
-                  ElevatedButton(
-                    onPressed: () {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                          content: Text('This is a SnackBar.'),
-                        ),
-                      );
-                    },
-                    child: const Text('Elevated Button'),
-                  ),
-                  TextButton(
-                    onPressed: () {},
-                    child: const Text('Text Button'),
-                  ),
-                  OutlinedButton(
-                    onPressed: () {},
-                    child: const Text('Outlined Button'),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 16),
-              const Card(
-                child: Padding(
-                  padding: EdgeInsets.all(16.0),
-                  child: Column(
-                    children: [
-                      Text('This is a Card.'),
-                      SizedBox(height: 8),
-                      Icon(Icons.widgets),
-                    ],
-                  ),
+                OutlinedButton(
+                  onPressed: () {},
+                  child: const Text('Outlined'),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    showDialog(
-                      context: context,
-                      builder: (context) => AlertDialog(
-                        title: const Text('Sample Dialog'),
-                        content:
-                            const Text('This is the content of the dialog.'),
-                        actions: [
-                          TextButton(
-                            onPressed: () => Navigator.of(context).pop(),
-                            child: const Text('Close'),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
-                  child: const Text('Show Dialog'),
+                TextButton(
+                  onPressed: () {},
+                  child: const Text('Text'),
                 ),
-              ),
-              const SizedBox(height: 16),
-              Center(
-                child: ElevatedButton(
-                  onPressed: () {
-                    showModalBottomSheet(
-                      context: context,
-                      builder: (context) => Container(
-                        height: 200,
-                        padding: const EdgeInsets.all(16.0),
-                        child: const Center(
-                          child: Text('This is a BottomSheet.'),
-                        ),
-                      ),
-                    );
-                  },
-                  child: const Text('Show BottomSheet'),
-                ),
-              ),
-            ],
-          ),
+              ],
+            ),
+            const SizedBox(height: 10),
+            const Center(
+              child: CircularProgressIndicator(),
+            ),
+          ],
         ),
       ),
       floatingActionButton: FloatingActionButton(
-        onPressed: () {},
-        tooltip: 'Increment',
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) => AlertDialog(
+              title: const Text('Dialog'),
+              content: const Text('This is a dialog box.'),
+              actions: [
+                TextButton(
+                  onPressed: () => Navigator.of(context).pop(),
+                  child: const Text('Close'),
+                ),
+              ],
+            ),
+          );
+        },
         child: const Icon(Icons.add),
       ),
     );

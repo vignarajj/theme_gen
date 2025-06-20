@@ -13,50 +13,94 @@ and the Flutter guide for
 
 # Theme Gen
 
-A Flutter package to simplify theme management with predefined themes and a CLI for generating custom themes.
+A Flutter package to simplify theme management with a set of beautiful, predefined themes and a simple API for generating new themes dynamically from a single color.
+
+## Features
+
+- **Predefined Themes**: A collection of ready-to-use themes for both light and dark modes.
+- **Dynamic Theme Generation**: Create a full light or dark `ThemeData` object at runtime from any `Color`.
+- **Consistent UI**: Themes are designed to provide a consistent look and feel across all major Flutter widgets.
+- **Easy to Use**: A simple, clean API that gets you up and running in seconds.
 
 ## Installation
 
-Add this to your `pubspec.yaml` file:
+Add this to your `pubspec.yaml` file's dependencies:
 
 ```yaml
 dependencies:
-  theme_gen: ^1.0.0
+  theme_gen: ^1.0.0 # Replace with the latest version
+  hexcolor: ^3.0.1 # Required for the example
 ```
 
-Then run `flutter pub get`.
+Then, run `flutter pub get` in your terminal.
 
 ## Usage
 
-### Predefined Themes
+### 1. Using a Predefined Theme
 
-Apply a predefined theme to your `MaterialApp`:
+You can easily apply one of the built-in themes to your `MaterialApp`.
 
 ```dart
 import 'package:flutter/material.dart';
 import 'package:theme_gen/theme_gen.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Theme Gen Example',
-      theme: AppTheme.lightTheme.blue,
-      darkTheme: AppTheme.darkTheme.blue,
-      home: MyHomePage(),
+      // Access light themes
+      theme: AppTheme.light.blue,
+      // Access dark themes
+      darkTheme: AppTheme.dark.blue,
+      themeMode: ThemeMode.system,
+      home: const MyHomePage(),
     );
   }
 }
 ```
 
-Available predefined themes:
-- `blue`
-- `red`
-- `green`
-- `purple`
-- `blackandwhite`
+**Available Predefined Themes:**
+
+- `AppTheme.light.blue` / `AppTheme.dark.blue`
+- `AppTheme.light.red` / `AppTheme.dark.red`
+- `AppTheme.light.green` / `AppTheme.dark.green`
+- `AppTheme.light.purple` / `AppTheme.dark.purple`
+- `AppTheme.light.blackAndWhite` / `AppTheme.dark.blackAndWhite`
+
+### 2. Generating a Custom Theme Dynamically
+
+Create a complete theme on the fly from a single color. This is perfect for letting users select their own theme color.
+
+```dart
+import 'package:flutter/material.dart';
+import 'package:theme_gen/theme_gen.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class MyDynamicApp extends StatelessWidget {
+  const MyDynamicApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Generate a theme from any color
+    final myCustomColor = HexColor('#8e44ad'); // A nice purple
+
+    return MaterialApp(
+      title: 'Theme Gen Dynamic Example',
+      // Generate the light theme
+      theme: AppTheme.getCustomTheme(primaryColor: myCustomColor),
+      // Generate the dark theme
+      darkTheme: AppTheme.getCustomDarkTheme(primaryColor: myCustomColor),
+      themeMode: ThemeMode.system,
+      home: const MyHomePage(),
+    );
+  }
+}
+```
 
 ### Theme Previews
 
@@ -64,34 +108,22 @@ Available predefined themes:
 | ---------------------------------------------------- | ------------------------------------------------- | ----------------------------------------------------- |
 | ![Blue Theme](screenshots/blue_theme_screenshot.png) | ![Red Theme](screenshots/red_theme_screenshot.png) | ![Green Theme](screenshots/green_theme_screenshot.png) |
 
-### Custom Theme Generation (CLI)
+## Example App
 
-Use the CLI to generate a custom theme from a hex color.
+The included example app is the best way to see the package in action. It demonstrates:
+- Switching between all predefined light and dark themes.
+- Using a text field to generate and apply a custom theme from any hex color at runtime.
 
-1.  **Run the command:**
+To run the example app:
 
-    ```sh
-    dart run theme_gen:theme create theme
-    ```
+```sh
+cd example
+flutter run
+```
 
-2.  **Enter a theme name:** When prompted, enter a name for your theme (e.g., `custom_pink`). The name should be in `snake_case`.
+This will launch the app on your connected device or simulator.
 
-3.  **Enter a hex color:** Provide a hex color code (e.g., `#FF00FF`).
+## Additional Information
 
-The CLI will generate a `<theme_name>_theme.dart` file inside the `app_theme/` directory with your custom light and dark themes.
-
-### Testing the CLI
-
-Here is an example of the CLI in action:
-
-![CLI Usage](screenshots/cli_usage.png)
-
-And here is the content of the generated theme file:
-
-![Generated Theme](screenshots/generated_theme.png)
-
-## Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
+- For more details on the API, check out the [API Documentation](doc/api/index.html).
+- If you find any issues or have a feature request, please file them on the [GitHub repository](https://github.com/your-repo/theme_gen).
