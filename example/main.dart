@@ -12,8 +12,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Theme Gen Example',
-      theme: AppTheme.lightTheme.red,
-      darkTheme: AppTheme.darkTheme.red,
+      theme: AppTheme.lightTheme.blackandwhite,
+      darkTheme: AppTheme.darkTheme.blackandwhite,
       themeMode: ThemeMode.system, // Or ThemeMode.light, ThemeMode.dark
       home: const MyHomePage(title: 'Theme Gen Example'),
     );
@@ -52,8 +52,7 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
               const SizedBox(height: 16),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              Wrap(
                 children: [
                   ElevatedButton(
                     onPressed: () {
