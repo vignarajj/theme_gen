@@ -6,7 +6,7 @@ class PredefinedThemes {
   static final ThemeData _commonTheme = ThemeData(
     primarySwatch: Colors.blue,
     visualDensity: VisualDensity.adaptivePlatformDensity,
-    dialogTheme: DialogTheme(
+    dialogTheme: DialogThemeData(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16.0),
       ),
@@ -16,10 +16,10 @@ class PredefinedThemes {
         borderRadius: BorderRadius.vertical(top: Radius.circular(16.0)),
       ),
     ),
-    cardTheme: CardTheme(
+    cardTheme: const CardThemeData(
       elevation: 4,
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.all(Radius.circular(16.0)),
       ),
     ),
   );
@@ -30,6 +30,8 @@ class PredefinedThemes {
       required Color backgroundColor,
       required Color textColor,
       required Brightness brightness}) {
+    final buttonForegroundColor =
+        brightness == Brightness.dark ? Colors.black : Colors.white;
     return _commonTheme.copyWith(
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: primaryColor,
@@ -40,7 +42,7 @@ class PredefinedThemes {
       ),
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
-        foregroundColor: brightness == Brightness.dark ? Colors.black : Colors.white,
+        foregroundColor: buttonForegroundColor,
         elevation: 0,
       ),
       floatingActionButtonTheme: FloatingActionButtonThemeData(
@@ -48,24 +50,24 @@ class PredefinedThemes {
         foregroundColor: Colors.black,
       ),
       textTheme: TextTheme(
-        bodyLarge: TextStyle(color: textColor),
-        bodyMedium: TextStyle(color: textColor),
-        displayLarge: TextStyle(color: textColor),
-        displayMedium: TextStyle(color: textColor),
-        displaySmall: TextStyle(color: textColor),
-        headlineMedium: TextStyle(color: textColor),
-        headlineSmall: TextStyle(color: textColor),
-        titleLarge: TextStyle(color: textColor),
-        titleMedium: TextStyle(color: textColor),
-        titleSmall: TextStyle(color: textColor),
-        bodySmall: TextStyle(color: textColor),
-        labelLarge: TextStyle(color: textColor),
-        labelSmall: TextStyle(color: textColor),
+        bodyLarge: TextStyle(color: textColor, fontSize: 16),
+        bodyMedium: TextStyle(color: textColor, fontSize: 14),
+        displayLarge: TextStyle(color: textColor, fontSize: 57),
+        displayMedium: TextStyle(color: textColor, fontSize: 45),
+        displaySmall: TextStyle(color: textColor, fontSize: 36),
+        headlineMedium: TextStyle(color: textColor, fontSize: 28),
+        headlineSmall: TextStyle(color: textColor, fontSize: 24),
+        titleLarge: TextStyle(color: textColor, fontSize: 22),
+        titleMedium: TextStyle(color: textColor, fontSize: 16),
+        titleSmall: TextStyle(color: textColor, fontSize: 14),
+        bodySmall: TextStyle(color: textColor, fontSize: 12),
+        labelLarge: TextStyle(color: textColor, fontSize: 14),
+        labelSmall: TextStyle(color: textColor, fontSize: 11),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: primaryColor,
-          foregroundColor: brightness == Brightness.dark ? Colors.black : Colors.white,
+          foregroundColor: buttonForegroundColor,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(8.0),
           ),
@@ -93,11 +95,114 @@ class PredefinedThemes {
           borderRadius: BorderRadius.circular(8.0),
           borderSide: BorderSide(color: primaryColor),
         ),
+        labelStyle: TextStyle(color: textColor.withAlpha(178)),
       ),
       iconTheme: IconThemeData(color: primaryColor),
       snackBarTheme: SnackBarThemeData(
         backgroundColor: primaryColor,
-        contentTextStyle: const TextStyle(color: Colors.white),
+        contentTextStyle: TextStyle(color: buttonForegroundColor),
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8.0),
+            borderSide: BorderSide(color: primaryColor),
+          ),
+        ),
+      ),
+      progressIndicatorTheme: ProgressIndicatorThemeData(
+        color: primaryColor,
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        selectedItemColor: primaryColor,
+        unselectedItemColor: textColor.withAlpha(178),
+        backgroundColor: backgroundColor,
+      ),
+      checkboxTheme: CheckboxThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return primaryColor;
+          }
+          return textColor.withAlpha(76);
+        }),
+        checkColor: WidgetStateProperty.all(buttonForegroundColor),
+      ),
+      radioTheme: RadioThemeData(
+        fillColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return primaryColor;
+          }
+          return textColor.withAlpha(76);
+        }),
+      ),
+      badgeTheme: BadgeThemeData(
+        backgroundColor: secondaryColor.withAlpha(51),
+        textColor: buttonForegroundColor,
+      ),
+      bannerTheme: MaterialBannerThemeData(
+        backgroundColor: secondaryColor.withAlpha(51),
+        contentTextStyle: TextStyle(color: textColor),
+      ),
+      buttonTheme: ButtonThemeData(
+        buttonColor: primaryColor,
+        textTheme: ButtonTextTheme.primary,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8.0),
+        ),
+      ),
+      textSelectionTheme: TextSelectionThemeData(
+        cursorColor: primaryColor,
+        selectionColor: primaryColor.withAlpha(102),
+        selectionHandleColor: primaryColor,
+      ),
+      listTileTheme: ListTileThemeData(
+        iconColor: primaryColor,
+        titleTextStyle: TextStyle(color: textColor, fontSize: 16),
+        subtitleTextStyle:
+            TextStyle(color: textColor.withAlpha(178), fontSize: 14),
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: secondaryColor.withAlpha(51),
+        selectedColor: primaryColor,
+        labelStyle: TextStyle(color: textColor),
+        secondaryLabelStyle: TextStyle(color: buttonForegroundColor),
+        checkmarkColor: buttonForegroundColor,
+      ),
+      datePickerTheme: DatePickerThemeData(
+        backgroundColor: backgroundColor,
+        headerBackgroundColor: primaryColor,
+        headerForegroundColor: buttonForegroundColor,
+        dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return buttonForegroundColor;
+          }
+          return textColor;
+        }),
+        todayForegroundColor: WidgetStateProperty.all(primaryColor),
+        yearForegroundColor: WidgetStateProperty.all(textColor),
+      ),
+      timePickerTheme: TimePickerThemeData(
+        backgroundColor: backgroundColor,
+        hourMinuteTextColor: textColor,
+        hourMinuteColor: secondaryColor.withAlpha(51),
+        dayPeriodTextColor: textColor,
+        dayPeriodColor: secondaryColor.withAlpha(51),
+        dialHandColor: primaryColor,
+        dialTextColor: textColor,
+      ),
+      tooltipTheme: TooltipThemeData(
+        preferBelow: false,
+        textStyle: TextStyle(color: buttonForegroundColor),
+        decoration: BoxDecoration(
+          color: primaryColor,
+          borderRadius: BorderRadius.circular(4),
+        ),
+      ),
+      toggleButtonsTheme: ToggleButtonsThemeData(
+        selectedColor: buttonForegroundColor,
+        color: textColor,
+        fillColor: primaryColor,
+        borderRadius: BorderRadius.circular(8.0),
       ),
     );
   }
