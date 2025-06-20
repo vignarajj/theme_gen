@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-final ThemeData custom_pink_lightTheme = ThemeData(
+final ThemeData customPinkLightTheme = ThemeData(
   primaryColor: const Color(0xffff00ff),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xffff00ff),
@@ -13,7 +13,7 @@ final ThemeData custom_pink_lightTheme = ThemeData(
   ),
 );
 
-final ThemeData custom_pink_darkTheme = ThemeData(
+final ThemeData customPinkDarkTheme = ThemeData(
   primaryColor: const Color(0xffff00ff),
   appBarTheme: const AppBarTheme(
     backgroundColor: Color(0xffff00ff),

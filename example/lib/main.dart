@@ -43,8 +43,8 @@ class _MyAppState extends State<MyApp> {
           _currentDarkTheme = AppTheme.darkTheme.blackandwhite;
           break;
         case 'custom_pink':
-          _currentTheme = custom_pink_lightTheme;
-          _currentDarkTheme = custom_pink_darkTheme;
+          _currentTheme = customPinkLightTheme;
+          _currentDarkTheme = customPinkDarkTheme;
           break;
       }
     });
