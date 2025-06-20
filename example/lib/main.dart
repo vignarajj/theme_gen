@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:hexcolor/hexcolor.dart';
-import 'package:theme_kit/theme_kit.dart';
+import 'package:theme_maker/theme_maker.dart';
 
 void main() {
   runApp(const MyApp());

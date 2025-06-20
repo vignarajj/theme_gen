@@ -1,5 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
-import 'package:theme_kit/theme_kit.dart';
+import 'package:theme_maker/theme_maker.dart';
 import 'package:flutter/material.dart';
 
 void main() {
