@@ -19,8 +19,38 @@ A Flutter package to simplify theme management with a set of beautiful, predefin
 
 - **Predefined Themes**: A collection of ready-to-use themes for both light and dark modes.
 - **Dynamic Theme Generation**: Create a full light or dark `ThemeData` object at runtime from any `Color`.
+- **Comprehensive Theme Support**: Includes theming for all major Flutter UI components including buttons, input fields, navigation, cards, dialogs, and more.
+- **Modern Material Design**: Follows Material 3 design principles with consistent styling across all components.
 - **Consistent UI**: Themes are designed to provide a consistent look and feel across all major Flutter widgets.
 - **Easy to Use**: A simple, clean API that gets you up and running in seconds.
+- **Lint-Free**: No deprecated warnings or lint issues - fully compatible with the latest Flutter versions.
+
+## Supported Theme Components
+
+This package provides comprehensive theming support for:
+
+### Core Components
+- AppBar, Scaffold, Cards, Dialogs
+- All Button Types (Elevated, Outlined, Text, Icon, Filled)
+- Input Fields and Form Components
+- Progress Indicators, Sliders, Switches
+- Checkboxes, Radio Buttons, Chips
+
+### Navigation & Layout
+- Bottom Navigation Bar, Navigation Rail
+- Tab Bar, Drawers, List Tiles
+- Expansion Tiles, Dividers, Scrollbars
+
+### Overlays & Feedback
+- Tooltips, SnackBars, Popup Menus
+- Bottom Sheets, Date/Time Pickers
+- Menus and Dropdowns
+
+### Visual Elements
+- Icons, Badges, Banners
+- Text Selection, Floating Action Buttons
+
+All components dynamically adapt their colors and styling based on your chosen primary color while maintaining optimal contrast and accessibility.
 
 ## Installation
 
@@ -28,7 +58,7 @@ Add this to your `pubspec.yaml` file's dependencies:
 
 ```yaml
 dependencies:
-  theme_maker: ^1.0.0 # Replace with the latest version
+  theme_maker: ^1.0.4 # Replace with the latest version
   hexcolor: ^3.0.1 # Required for the example
 ```
 
@@ -102,6 +132,24 @@ class MyDynamicApp extends StatelessWidget {
 }
 ```
 
+### Complete Theme Coverage
+
+Every generated theme includes styling for:
+
+```dart
+// Example of what's included in every theme
+ThemeData customTheme = AppTheme.getCustomTheme(primaryColor: Colors.teal);
+
+// All these components will be properly themed:
+// - ElevatedButton, OutlinedButton, TextButton, IconButton, FilledButton
+// - TextField, Dropdown, Checkbox, Radio, Switch, Slider
+// - AppBar, BottomNavigationBar, NavigationRail, TabBar
+// - Card, Dialog, BottomSheet, Drawer, ListTile
+// - SnackBar, Tooltip, PopupMenu, ExpansionTile
+// - ProgressIndicator, Chip, Badge, Divider, Scrollbar
+// - DatePicker, TimePicker, Menu, and more...
+```
+
 ### Theme Previews
 
 | Blue Theme                                           | Red Theme                                         | Green Theme                                           |
@@ -113,6 +161,7 @@ class MyDynamicApp extends StatelessWidget {
 The included example app is the best way to see the package in action. It demonstrates:
 - Switching between all predefined light and dark themes.
 - Using a text field to generate and apply a custom theme from any hex color at runtime.
+- Showcasing various UI components with the applied themes.
 
 To run the example app:
 
@@ -123,7 +172,19 @@ flutter run
 
 This will launch the app on your connected device or simulator.
 
+## Migration Guide
+
+### From 1.0.3 to 1.0.4+
+- No breaking changes
+- All existing code will continue to work
+- New theme components are automatically applied
+- Deprecated API usage has been fixed internally
+
 ## Additional Information
 
+- **Flutter Compatibility**: Compatible with Flutter 2.19.0 and above
+- **Material Design**: Follows Material 3 design guidelines
+- **Accessibility**: Maintains proper contrast ratios and touch targets
+- **Performance**: Lightweight with minimal overhead
 - For more details on the API, check out the [API Documentation](doc/api/index.html).
-- If you find any issues or have a feature request, please file them on the [GitHub repository](https://github.com/your-repo/theme_maker).
+- If you find any issues or have a feature request, please file them on the [GitHub repository](https://github.com/vignarajj/theme_gen).

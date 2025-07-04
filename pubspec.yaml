@@ -1,6 +1,6 @@
 name: theme_maker
 description: A Flutter package for easy theme management predefined light/dark themes and dynamic theme generation from any color.
-version: 1.0.3
+version: 1.0.4
 repository: https://github.com/vignarajj/theme_gen
 homepage: https://vignaraj.dev
 

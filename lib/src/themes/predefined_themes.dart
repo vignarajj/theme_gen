@@ -204,6 +204,120 @@ class PredefinedThemes {
         fillColor: primaryColor,
         borderRadius: BorderRadius.circular(8.0),
       ),
+      filledButtonTheme: FilledButtonThemeData(
+        style: FilledButton.styleFrom(
+          backgroundColor: primaryColor,
+          foregroundColor: buttonForegroundColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8.0),
+          ),
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: ButtonStyle(
+          foregroundColor: WidgetStateProperty.all(primaryColor),
+          backgroundColor: WidgetStateProperty.resolveWith((states) {
+            if (states.contains(WidgetState.hovered)) {
+              return primaryColor.withValues(
+                  alpha: brightness == Brightness.dark ? 0.2 : 0.1);
+            }
+            return Colors.transparent;
+          }),
+        ),
+      ),
+      tabBarTheme: TabBarThemeData(
+        labelColor: primaryColor,
+        unselectedLabelColor: textColor.withAlpha(178),
+        indicator: UnderlineTabIndicator(
+          borderSide: BorderSide(color: primaryColor, width: 2),
+        ),
+        indicatorSize: TabBarIndicatorSize.tab,
+      ),
+      sliderTheme: SliderThemeData(
+        activeTrackColor: primaryColor,
+        inactiveTrackColor: primaryColor.withValues(alpha: 0.3),
+        thumbColor: primaryColor,
+        overlayColor: primaryColor.withValues(alpha: 0.2),
+        trackHeight: 4.0,
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return primaryColor;
+          }
+          return brightness == Brightness.dark
+              ? Colors.grey.shade600
+              : Colors.grey.shade400;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.selected)) {
+            return primaryColor.withValues(alpha: 0.5);
+          }
+          return brightness == Brightness.dark
+              ? Colors.grey.shade700
+              : Colors.grey.shade300;
+        }),
+      ),
+      popupMenuTheme: PopupMenuThemeData(
+        color: backgroundColor,
+        elevation: 4,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(8),
+        ),
+        textStyle: TextStyle(color: textColor),
+      ),
+      drawerTheme: DrawerThemeData(
+        backgroundColor: backgroundColor,
+        elevation: 16,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+            topRight: Radius.circular(16),
+            bottomRight: Radius.circular(16),
+          ),
+        ),
+      ),
+      dividerTheme: DividerThemeData(
+        color: brightness == Brightness.dark
+            ? Colors.grey.shade700
+            : Colors.grey.shade300,
+        thickness: 1,
+        space: 1,
+      ),
+      scrollbarTheme: ScrollbarThemeData(
+        thumbColor:
+            WidgetStateProperty.all(primaryColor.withValues(alpha: 0.7)),
+        trackColor:
+            WidgetStateProperty.all(primaryColor.withValues(alpha: 0.1)),
+        radius: const Radius.circular(4),
+        thickness: WidgetStateProperty.all(8),
+      ),
+      navigationRailTheme: NavigationRailThemeData(
+        backgroundColor: backgroundColor,
+        selectedIconTheme: IconThemeData(color: primaryColor),
+        unselectedIconTheme: IconThemeData(color: textColor.withAlpha(178)),
+        selectedLabelTextStyle: TextStyle(color: primaryColor),
+        unselectedLabelTextStyle: TextStyle(color: textColor.withAlpha(178)),
+        indicatorColor: primaryColor.withValues(alpha: 0.2),
+      ),
+      expansionTileTheme: ExpansionTileThemeData(
+        backgroundColor: Colors.transparent,
+        collapsedBackgroundColor: Colors.transparent,
+        iconColor: primaryColor,
+        collapsedIconColor: textColor.withAlpha(178),
+        textColor: textColor,
+        collapsedTextColor: textColor,
+      ),
+      menuTheme: MenuThemeData(
+        style: MenuStyle(
+          backgroundColor: WidgetStateProperty.all(backgroundColor),
+          elevation: WidgetStateProperty.all(4),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(8),
+            ),
+          ),
+        ),
+      ),
     );
   }
 
@@ -297,4 +411,4 @@ class PredefinedThemes {
     textColor: Colors.white,
     brightness: Brightness.dark,
   );
-} 
+}

@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
-  <meta name="description" content="theme_gen API docs, for the Dart programming language.">
-  <title>theme_gen - Dart API docs</title>
+  <meta name="description" content="theme_maker API docs, for the Dart programming language.">
+  <title>theme_maker - Dart API docs</title>
 
 
   
@@ -24,9 +24,9 @@
 <header id="title">
   <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
   <ol class="breadcrumbs gt-separated dark hidden-xs">
-    <li class="self-crumb">theme_gen package</li>
+    <li><a href="https://vignaraj.dev">theme_maker package</a></li>
   </ol>
-  <div class="self-name">theme_gen</div>
+  <div class="self-name">theme_maker</div>
   <form class="search navbar-right" role="search">
     <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
   </form>
@@ -56,69 +56,121 @@ and the Flutter guide for
 [developing packages and plugins](https://flutter.dev/to/develop-packages). 
 -->
 <h1 id="theme-gen">Theme Gen</h1>
-<p>A Flutter package to simplify theme management with predefined themes and a CLI for generating custom themes.</p>
+<p>A Flutter package to simplify theme management with a set of beautiful, predefined themes and a simple API for generating new themes dynamically from a single color.</p>
+<h2 id="features">Features</h2>
+<ul>
+<li><strong>Predefined Themes</strong>: A collection of ready-to-use themes for both light and dark modes.</li>
+<li><strong>Dynamic Theme Generation</strong>: Create a full light or dark <code>ThemeData</code> object at runtime from any <code>Color</code>.</li>
+<li><strong>Consistent UI</strong>: Themes are designed to provide a consistent look and feel across all major Flutter widgets.</li>
+<li><strong>Easy to Use</strong>: A simple, clean API that gets you up and running in seconds.</li>
+</ul>
 <h2 id="installation">Installation</h2>
-<p>Add this to your <code>pubspec.yaml</code> file:</p>
+<p>Add this to your <code>pubspec.yaml</code> file's dependencies:</p>
 <pre class="language-yaml"><code class="language-yaml">dependencies:
-  theme_gen: ^1.0.0
+  theme_maker: ^1.0.0 # Replace with the latest version
+  hexcolor: ^3.0.1 # Required for the example
 </code></pre>
-<p>Then run <code>flutter pub get</code>.</p>
+<p>Then, run <code>flutter pub get</code> in your terminal.</p>
 <h2 id="usage">Usage</h2>
-<h3 id="predefined-themes">Predefined Themes</h3>
-<p>Apply a predefined theme to your <code>MaterialApp</code>:</p>
+<h3 id="1-using-a-predefined-theme">1. Using a Predefined Theme</h3>
+<p>You can easily apply one of the built-in themes to your <code>MaterialApp</code>.</p>
 <pre class="language-dart"><code class="language-dart">import 'package:flutter/material.dart';
-import 'package:theme_gen/theme_gen.dart';
+import 'package:theme_maker/theme_maker.dart';
 
-void main() =&gt; runApp(MyApp());
+void main() =&gt; runApp(const MyApp());
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Theme Gen Example',
-      theme: AppTheme.lightTheme.blue,
-      darkTheme: AppTheme.darkTheme.blue,
-      home: MyHomePage(),
+      // Access light themes
+      theme: AppTheme.light.blue,
+      // Access dark themes
+      darkTheme: AppTheme.dark.blue,
+      themeMode: ThemeMode.system,
+      home: const MyHomePage(),
     );
   }
 }
 </code></pre>
-<p>Available predefined themes:</p>
+<p><strong>Available Predefined Themes:</strong></p>
 <ul>
-<li><code>blue</code></li>
-<li><code>red</code></li>
-<li><code>green</code></li>
-<li><code>purple</code></li>
-<li><code>blackandwhite</code></li>
+<li><code>AppTheme.light.blue</code> / <code>AppTheme.dark.blue</code></li>
+<li><code>AppTheme.light.red</code> / <code>AppTheme.dark.red</code></li>
+<li><code>AppTheme.light.green</code> / <code>AppTheme.dark.green</code></li>
+<li><code>AppTheme.light.purple</code> / <code>AppTheme.dark.purple</code></li>
+<li><code>AppTheme.light.blackAndWhite</code> / <code>AppTheme.dark.blackAndWhite</code></li>
 </ul>
-<h3 id="custom-theme-generation-cli">Custom Theme Generation (CLI)</h3>
-<p>Use the CLI to generate a custom theme from a hex color.</p>
-<ol>
-<li>
-<p><strong>Run the command:</strong></p>
-<pre class="language-sh"><code class="language-sh">dart run theme_gen:theme create theme
+<h3 id="2-generating-a-custom-theme-dynamically">2. Generating a Custom Theme Dynamically</h3>
+<p>Create a complete theme on the fly from a single color. This is perfect for letting users select their own theme color.</p>
+<pre class="language-dart"><code class="language-dart">import 'package:flutter/material.dart';
+import 'package:theme_maker/theme_maker.dart';
+import 'package:hexcolor/hexcolor.dart';
+
+class MyDynamicApp extends StatelessWidget {
+  const MyDynamicApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    // Generate a theme from any color
+    final myCustomColor = HexColor('#8e44ad'); // A nice purple
+
+    return MaterialApp(
+      title: 'Theme Gen Dynamic Example',
+      // Generate the light theme
+      theme: AppTheme.getCustomTheme(primaryColor: myCustomColor),
+      // Generate the dark theme
+      darkTheme: AppTheme.getCustomDarkTheme(primaryColor: myCustomColor),
+      themeMode: ThemeMode.system,
+      home: const MyHomePage(),
+    );
+  }
+}
 </code></pre>
-</li>
-<li>
-<p><strong>Enter a theme name:</strong> When prompted, enter a name for your theme (e.g., <code>custom_pink</code>). The name should be in <code>snake_case</code>.</p>
-</li>
-<li>
-<p><strong>Enter a hex color:</strong> Provide a hex color code (e.g., <code>#FF00FF</code>).</p>
-</li>
-</ol>
-<p>The CLI will generate a <code>&lt;theme_name&gt;_theme.dart</code> file inside the <code>app_theme/</code> directory with your custom light and dark themes.</p>
-<h2 id="additional-information">Additional information</h2>
-<p>TODO: Tell users more about the package: where to find more information, how to
-contribute to the package, how to file issues, what response they can expect
-from the package authors, and more.</p>
+<h3 id="theme-previews">Theme Previews</h3>
+<table>
+<thead>
+<tr>
+<th>Blue Theme</th>
+<th>Red Theme</th>
+<th>Green Theme</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="screenshots/blue_theme_screenshot.png" alt="Blue Theme"></td>
+<td><img src="screenshots/red_theme_screenshot.png" alt="Red Theme"></td>
+<td><img src="screenshots/green_theme_screenshot.png" alt="Green Theme"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="example-app">Example App</h2>
+<p>The included example app is the best way to see the package in action. It demonstrates:</p>
+<ul>
+<li>Switching between all predefined light and dark themes.</li>
+<li>Using a text field to generate and apply a custom theme from any hex color at runtime.</li>
+</ul>
+<p>To run the example app:</p>
+<pre class="language-sh"><code class="language-sh">cd example
+flutter run
+</code></pre>
+<p>This will launch the app on your connected device or simulator.</p>
+<h2 id="additional-information">Additional Information</h2>
+<ul>
+<li>For more details on the API, check out the <a href="doc/api/index.html">API Documentation</a>.</li>
+<li>If you find any issues or have a feature request, please file them on the <a href="https://github.com/your-repo/theme_maker">GitHub repository</a>.</li>
+</ul>
 </section>
 
 
       <section class="summary">
           <h2>Libraries</h2>
         <dl>
-          <dt id="theme_gen">
-  <span class="name"><a href="theme_gen/">theme_gen</a></span> 
+          <dt id="theme_maker">
+  <span class="name"><a href="theme_maker/">theme_maker</a></span> 
 
 </dt>
 <dd>Support for doing something awesome.
@@ -135,13 +187,13 @@ from the package authors, and more.</p>
   </form>
 </header>
 <ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
-    <li class="self-crumb">theme_gen package</li>
+    <li><a href="https://vignaraj.dev">theme_maker package</a></li>
 </ol>
 
-    <h5 class="hidden-xs"><span class="package-name">theme_gen</span> <span class="package-kind">package</span></h5>
+    <h5 class="hidden-xs"><span class="package-name">theme_maker</span> <span class="package-kind">package</span></h5>
     <ol>
       <li class="section-title">Libraries</li>
-      <li><a href="theme_gen/">theme_gen</a></li>
+      <li><a href="theme_maker/">theme_maker</a></li>
 </ol>
 
   </div>
@@ -150,8 +202,8 @@ from the package authors, and more.</p>
 </main>
 <footer>
   <span class="no-break">
-    theme_gen
-      1.0.0
+    theme_maker
+      1.0.3
   </span>
   
 </footer>

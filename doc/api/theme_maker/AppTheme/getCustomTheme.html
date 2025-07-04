@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1, user-scalable=no">
+  <meta name="description" content="API docs for the getCustomTheme method from the AppTheme class, for the Dart programming language.">
+  <title>getCustomTheme method - AppTheme class - theme_maker library - Dart API</title>
+
+
+  
+  <link rel="preconnect" href="https://fonts.gstatic.com">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+  
+  <link rel="stylesheet" href="../../static-assets/github.css?v1">
+  <link rel="stylesheet" href="../../static-assets/styles.css?v1">
+  <link rel="icon" href="../../static-assets/favicon.png?v1">
+  
+</head>
+
+<body data-base-href="../../" data-using-base-href="false" class="light-theme">
+<div id="overlay-under-drawer"></div>
+<header id="title">
+  <span id="sidenav-left-toggle" class="material-symbols-outlined" role="button" tabindex="0">menu</span>
+  <ol class="breadcrumbs gt-separated dark hidden-xs">
+    <li><a href="../../index.html">theme_maker</a></li>
+    <li><a href="../../theme_maker/">theme_maker.dart</a></li>
+    <li><a href="../../theme_maker/AppTheme-class.html">AppTheme</a></li>
+    <li class="self-crumb">getCustomTheme static method</li>
+  </ol>
+  <div class="self-name">getCustomTheme</div>
+  <form class="search navbar-right" role="search">
+    <input type="text" id="search-box" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+  <button class="toggle" id="theme-button" title="Toggle between light and dark mode" aria-label="Light and dark mode toggle">
+    <span id="dark-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      dark_mode
+    </span>
+    <span id="light-theme-button" class="material-symbols-outlined" aria-hidden="true">
+      light_mode
+    </span>
+  </button>
+</header>
+<main>
+<div
+    id="dartdoc-main-content"
+    class="main-content"
+    data-above-sidebar="theme_maker&#47;AppTheme-class-sidebar.html"
+    data-below-sidebar="">
+    <div>
+<h1><span class="kind-method">getCustomTheme</span> static method 
+</h1></div>
+
+    <section class="multi-line-signature">
+      
+<span class="returntype"><a href="https://api.flutter.dev/flutter/material/ThemeData-class.html">ThemeData</a></span>
+<span class="name ">getCustomTheme</span>(<wbr>{<ol class="parameter-list"> <li><span class="parameter" id="getCustomTheme-param-primaryColor"><span>required</span> <span class="type-annotation"><a href="https://api.flutter.dev/flutter/dart-ui/Color-class.html">Color</a></span> <span class="parameter-name">primaryColor</span>, </span></li>
+</ol>})
+
+      
+
+    </section>
+    
+
+
+    
+<section class="summary source-code" id="source">
+  <h2><span>Implementation</span></h2>
+  <pre class="language-dart"><code class="language-dart">static ThemeData getCustomTheme({required Color primaryColor}) {
+  return ThemeData(
+    primaryColor: primaryColor,
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+    colorScheme: ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.light,
+    ),
+    appBarTheme: AppBarTheme(
+      backgroundColor: primaryColor,
+      titleTextStyle: const TextStyle(
+        color: Colors.white,
+        fontSize: 20,
+        fontWeight: FontWeight.bold,
+      ),
+      iconTheme: const IconThemeData(color: Colors.white),
+    ),
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.all(primaryColor),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+    ),
+    outlinedButtonTheme: OutlinedButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(primaryColor),
+        side: WidgetStateProperty.all(
+          BorderSide(color: primaryColor),
+        ),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+    ),
+    textButtonTheme: TextButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(primaryColor),
+      ),
+    ),
+    iconButtonTheme: IconButtonThemeData(
+      style: ButtonStyle(
+        foregroundColor: WidgetStateProperty.all(primaryColor),
+        backgroundColor: WidgetStateProperty.resolveWith((states) {
+          if (states.contains(WidgetState.hovered)) {
+            return primaryColor.withValues(alpha: 0.1);
+          }
+          return Colors.transparent;
+        }),
+      ),
+    ),
+    chipTheme: ChipThemeData(
+      backgroundColor: primaryColor.withValues(alpha: 0.1),
+      selectedColor: primaryColor,
+      labelStyle: const TextStyle(color: Colors.black),
+      secondaryLabelStyle: const TextStyle(color: Colors.white),
+      checkmarkColor: Colors.white,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(16),
+      ),
+    ),
+    tabBarTheme: TabBarThemeData(
+      labelColor: primaryColor,
+      unselectedLabelColor: Colors.grey,
+      indicator: UnderlineTabIndicator(
+        borderSide: BorderSide(color: primaryColor, width: 2),
+      ),
+    ),
+    sliderTheme: SliderThemeData(
+      activeTrackColor: primaryColor,
+      inactiveTrackColor: primaryColor.withValues(alpha: 0.3),
+      thumbColor: primaryColor,
+      overlayColor: primaryColor.withValues(alpha: 0.2),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor;
+        }
+        return Colors.grey.shade400;
+      }),
+      trackColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor.withValues(alpha: 0.5);
+        }
+        return Colors.grey.shade300;
+      }),
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor;
+        }
+        return Colors.grey.shade400;
+      }),
+    ),
+    popupMenuTheme: PopupMenuThemeData(
+      color: Colors.white,
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      textStyle: const TextStyle(color: Colors.black),
+    ),
+    drawerTheme: const DrawerThemeData(
+      backgroundColor: Colors.white,
+      elevation: 16,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.only(
+          topRight: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
+      ),
+    ),
+    listTileTheme: ListTileThemeData(
+      iconColor: primaryColor,
+      titleTextStyle: const TextStyle(color: Colors.black, fontSize: 16),
+      subtitleTextStyle: TextStyle(color: Colors.grey.shade600, fontSize: 14),
+    ),
+    dividerTheme: DividerThemeData(
+      color: Colors.grey.shade300,
+      thickness: 1,
+      space: 1,
+    ),
+    scrollbarTheme: ScrollbarThemeData(
+      thumbColor:
+          WidgetStateProperty.all(primaryColor.withValues(alpha: 0.7)),
+      trackColor:
+          WidgetStateProperty.all(primaryColor.withValues(alpha: 0.1)),
+      radius: const Radius.circular(4),
+      thickness: WidgetStateProperty.all(8),
+    ),
+    tooltipTheme: TooltipThemeData(
+      decoration: BoxDecoration(
+        color: primaryColor,
+        borderRadius: BorderRadius.circular(4),
+      ),
+      textStyle: const TextStyle(color: Colors.white),
+      preferBelow: false,
+    ),
+    snackBarTheme: SnackBarThemeData(
+      backgroundColor: primaryColor,
+      contentTextStyle: const TextStyle(color: Colors.white),
+      actionTextColor: Colors.white,
+      behavior: SnackBarBehavior.floating,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+    ),
+    bottomSheetTheme: const BottomSheetThemeData(
+      backgroundColor: Colors.white,
+      elevation: 8,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(16)),
+      ),
+    ),
+    navigationRailTheme: NavigationRailThemeData(
+      backgroundColor: Colors.white,
+      selectedIconTheme: IconThemeData(color: primaryColor),
+      unselectedIconTheme: const IconThemeData(color: Colors.grey),
+      selectedLabelTextStyle: TextStyle(color: primaryColor),
+      unselectedLabelTextStyle: const TextStyle(color: Colors.grey),
+      indicatorColor: primaryColor.withValues(alpha: 0.2),
+    ),
+    timePickerTheme: TimePickerThemeData(
+      backgroundColor: Colors.white,
+      hourMinuteTextColor: Colors.black,
+      hourMinuteColor: primaryColor.withValues(alpha: 0.1),
+      dayPeriodTextColor: Colors.black,
+      dayPeriodColor: primaryColor.withValues(alpha: 0.1),
+      dialHandColor: primaryColor,
+      dialTextColor: Colors.black,
+    ),
+    datePickerTheme: DatePickerThemeData(
+      backgroundColor: Colors.white,
+      headerBackgroundColor: primaryColor,
+      headerForegroundColor: Colors.white,
+      dayForegroundColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return Colors.white;
+        }
+        return Colors.black;
+      }),
+      todayForegroundColor: WidgetStateProperty.all(primaryColor),
+      yearForegroundColor: WidgetStateProperty.all(Colors.black),
+    ),
+    expansionTileTheme: ExpansionTileThemeData(
+      backgroundColor: Colors.transparent,
+      collapsedBackgroundColor: Colors.transparent,
+      iconColor: primaryColor,
+      collapsedIconColor: Colors.grey,
+      textColor: Colors.black,
+      collapsedTextColor: Colors.black,
+    ),
+    menuTheme: MenuThemeData(
+      style: MenuStyle(
+        backgroundColor: WidgetStateProperty.all(Colors.white),
+        elevation: WidgetStateProperty.all(4),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(8),
+          ),
+        ),
+      ),
+    ),
+    inputDecorationTheme: InputDecorationTheme(
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+      ),
+      focusedBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(8),
+        borderSide: BorderSide(color: primaryColor),
+      ),
+      labelStyle: TextStyle(color: primaryColor),
+    ),
+    floatingActionButtonTheme: FloatingActionButtonThemeData(
+      backgroundColor: primaryColor,
+      foregroundColor: Colors.white,
+    ),
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+      selectedItemColor: primaryColor,
+      unselectedItemColor: Colors.grey,
+    ),
+    progressIndicatorTheme: ProgressIndicatorThemeData(
+      color: primaryColor,
+    ),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: WidgetStateProperty.resolveWith((states) {
+        if (states.contains(WidgetState.selected)) {
+          return primaryColor;
+        }
+        return Colors.grey.shade200;
+      }),
+      checkColor: WidgetStateProperty.all(Colors.white),
+    ),
+    cardTheme: const CardThemeData(
+      elevation: 4,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+    ),
+    dialogTheme: const DialogThemeData(
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.all(Radius.circular(12)),
+      ),
+    ),
+  );
+}</code></pre>
+</section>
+
+
+  </div> <!-- /.main-content -->
+  <div id="dartdoc-sidebar-left" class="sidebar sidebar-offcanvas-left">
+    <!-- The search input and breadcrumbs below are only responsively visible at low resolutions. -->
+<header id="header-search-sidebar" class="hidden-l">
+  <form class="search-sidebar" role="search">
+    <input type="text" id="search-sidebar" autocomplete="off" disabled class="form-control typeahead" placeholder="Loading search...">
+  </form>
+</header>
+<ol class="breadcrumbs gt-separated dark hidden-l" id="sidebar-nav">
+    <li><a href="../../index.html">theme_maker</a></li>
+    <li><a href="../../theme_maker/">theme_maker</a></li>
+    <li><a href="../../theme_maker/AppTheme-class.html">AppTheme</a></li>
+    <li class="self-crumb">getCustomTheme static method</li>
+</ol>
+
+    <h5>AppTheme class</h5>
+    <div id="dartdoc-sidebar-left-content"></div>
+  </div><!--/.sidebar-offcanvas-->
+  <div id="dartdoc-sidebar-right" class="sidebar sidebar-offcanvas-right">
+</div><!--/.sidebar-offcanvas-->
+</main>
+<footer>
+  <span class="no-break">
+    theme_maker
+      1.0.3
+  </span>
+  
+</footer>
+
+
+<script src="../../static-assets/highlight.pack.js?v1"></script>
+<script src="../../static-assets/docs.dart.js"></script>
+
+</body>
+</html>
+
