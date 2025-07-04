@@ -32,14 +32,69 @@ class PredefinedThemes {
       required Brightness brightness}) {
     final buttonForegroundColor =
         brightness == Brightness.dark ? Colors.black : Colors.white;
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: brightness,
+      primary: primaryColor,
+      secondary: secondaryColor,
+      tertiary: brightness == Brightness.light 
+          ? primaryColor.withValues(alpha: 0.6)
+          : primaryColor.withValues(alpha: 0.7),
+      surface: brightness == Brightness.light ? Colors.white : Colors.grey.shade900,
+      onPrimary: brightness == Brightness.light ? Colors.white : Colors.white,
+      onSecondary: brightness == Brightness.light ? Colors.white : Colors.white,
+      onTertiary: brightness == Brightness.light ? Colors.white : Colors.white,
+      onSurface: brightness == Brightness.light ? Colors.black : Colors.white,
+      onSurfaceVariant: brightness == Brightness.light 
+          ? Colors.grey.shade700 
+          : Colors.grey.shade400,
+      outline: brightness == Brightness.light 
+          ? Colors.grey.shade400 
+          : Colors.grey.shade600,
+      outlineVariant: brightness == Brightness.light 
+          ? Colors.grey.shade300 
+          : Colors.grey.shade700,
+      shadow: brightness == Brightness.light 
+          ? Colors.black.withValues(alpha: 0.15)
+          : Colors.black.withValues(alpha: 0.25),
+      scrim: brightness == Brightness.light 
+          ? Colors.black.withValues(alpha: 0.3)
+          : Colors.black.withValues(alpha: 0.5),
+      inverseSurface: brightness == Brightness.light 
+          ? Colors.grey.shade800 
+          : Colors.grey.shade100,
+      onInverseSurface: brightness == Brightness.light 
+          ? Colors.white 
+          : Colors.black,
+      inversePrimary: primaryColor.withValues(alpha: 0.7),
+      surfaceTint: primaryColor,
+      surfaceBright: brightness == Brightness.light 
+          ? Colors.grey.shade50 
+          : Colors.grey.shade700,
+      surfaceDim: brightness == Brightness.light 
+          ? Colors.grey.shade100 
+          : Colors.black,
+      surfaceContainer: brightness == Brightness.light 
+          ? Colors.grey.shade100 
+          : Colors.grey.shade800,
+      surfaceContainerHigh: brightness == Brightness.light 
+          ? Colors.grey.shade200 
+          : Colors.grey.shade700,
+      surfaceContainerHighest: brightness == Brightness.light 
+          ? Colors.grey.shade300 
+          : Colors.grey.shade600,
+      surfaceContainerLow: brightness == Brightness.light 
+          ? Colors.grey.shade50 
+          : Colors.grey.shade900,
+      surfaceContainerLowest: brightness == Brightness.light 
+          ? Colors.white 
+          : Colors.black,
+    );
+    
     return _commonTheme.copyWith(
       scaffoldBackgroundColor: backgroundColor,
       primaryColor: primaryColor,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        secondary: secondaryColor,
-        brightness: brightness,
-      ),
+      colorScheme: colorScheme,
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
         foregroundColor: buttonForegroundColor,

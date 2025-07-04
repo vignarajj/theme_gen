@@ -8,14 +8,40 @@ class AppTheme {
   static final dark = DarkTheme();
 
   static ThemeData getCustomTheme({required Color primaryColor}) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.light,
+      primary: primaryColor,
+      secondary: primaryColor.withValues(alpha: 0.8),
+      tertiary: primaryColor.withValues(alpha: 0.6),
+      surface: Colors.white,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onTertiary: Colors.white,
+      onSurface: Colors.black,
+      onSurfaceVariant: Colors.grey.shade700,
+      outline: Colors.grey.shade400,
+      outlineVariant: Colors.grey.shade300,
+      shadow: Colors.black.withValues(alpha: 0.15),
+      scrim: Colors.black.withValues(alpha: 0.3),
+      inverseSurface: Colors.grey.shade800,
+      onInverseSurface: Colors.white,
+      inversePrimary: primaryColor.withValues(alpha: 0.7),
+      surfaceTint: primaryColor,
+      surfaceBright: Colors.grey.shade50,
+      surfaceDim: Colors.grey.shade100,
+      surfaceContainer: Colors.grey.shade100,
+      surfaceContainerHigh: Colors.grey.shade200,
+      surfaceContainerHighest: Colors.grey.shade300,
+      surfaceContainerLow: Colors.grey.shade50,
+      surfaceContainerLowest: Colors.white,
+    );
+    
     return ThemeData(
       primaryColor: primaryColor,
       brightness: Brightness.light,
       scaffoldBackgroundColor: Colors.white,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        brightness: Brightness.light,
-      ),
+      colorScheme: colorScheme,
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
         titleTextStyle: const TextStyle(
@@ -264,14 +290,40 @@ class AppTheme {
   }
 
   static ThemeData getCustomDarkTheme({required Color primaryColor}) {
+    final colorScheme = ColorScheme.fromSeed(
+      seedColor: primaryColor,
+      brightness: Brightness.dark,
+      primary: primaryColor,
+      secondary: primaryColor.withValues(alpha: 0.8),
+      tertiary: primaryColor.withValues(alpha: 0.6),
+      surface: Colors.grey.shade900,
+      onPrimary: Colors.white,
+      onSecondary: Colors.white,
+      onTertiary: Colors.white,
+      onSurface: Colors.white,
+      onSurfaceVariant: Colors.grey.shade400,
+      outline: Colors.grey.shade600,
+      outlineVariant: Colors.grey.shade700,
+      shadow: Colors.black.withValues(alpha: 0.25),
+      scrim: Colors.black.withValues(alpha: 0.5),
+      inverseSurface: Colors.grey.shade100,
+      onInverseSurface: Colors.black,
+      inversePrimary: primaryColor.withValues(alpha: 0.7),
+      surfaceTint: primaryColor,
+      surfaceBright: Colors.grey.shade700,
+      surfaceDim: Colors.black,
+      surfaceContainer: Colors.grey.shade800,
+      surfaceContainerHigh: Colors.grey.shade700,
+      surfaceContainerHighest: Colors.grey.shade600,
+      surfaceContainerLow: Colors.grey.shade900,
+      surfaceContainerLowest: Colors.black,
+    );
+    
     return ThemeData(
       primaryColor: primaryColor,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Colors.black,
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: primaryColor,
-        brightness: Brightness.dark,
-      ),
+      colorScheme: colorScheme,
       appBarTheme: AppBarTheme(
         backgroundColor: primaryColor,
         titleTextStyle: const TextStyle(
